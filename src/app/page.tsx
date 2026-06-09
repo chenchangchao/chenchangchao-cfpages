@@ -63,7 +63,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/nicolaschan86"
+            href="https://github.com/chenchangchao"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full border border-neutral-700 px-5 py-3 text-sm font-medium text-neutral-100 transition hover:border-neutral-400"
