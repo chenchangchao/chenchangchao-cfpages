@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Icons } from "@/components/icons";
+import { Mail } from "lucide-react";
 
 export default function Home() {
   return (
@@ -14,42 +16,38 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-          AI 应用开发 / 数据分析 / TypeScript / Python / PostgreSQL / Agent / RAG
+          AI 应用开发 / 数据分析 / TypeScript / Python / PostgreSQL / Agent /
+          RAG
         </p>
 
         <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
-          关注 AI Agent、RAG、业务自动化、数据分析与全栈应用开发。把数据思维、工程能力和 AI 工具放在同一个工作流里，做能真正省时间的个人项目。
+          关注 AI
+          Agent、RAG、业务自动化、数据分析与全栈应用开发。把数据思维、工程能力和
+          AI 工具放在同一个工作流里，做能真正省时间的个人项目。
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
           <a
             href="mailto:contact@chenchangchao.com"
-            className="rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90"
           >
+            <Mail className="h-4 w-4" />
             联系我
           </a>
           <a
             href="https://github.com/chenchangchao"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-input bg-background px-4 py-2.5 text-sm font-medium shadow-sm transition hover:bg-accent"
+            className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-4 py-2.5 text-sm font-medium shadow-sm transition hover:bg-accent hover:text-accent-foreground"
           >
+            <Icons.gitHub className="h-4 w-4" />
             GitHub
           </a>
-          <a
-            href="https://x.com/galaxmilkway"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md border border-input bg-background px-4 py-2.5 text-sm font-medium shadow-sm transition hover:bg-accent"
-          >
-            X @galaxmilkway
-          </a>
         </div>
-
         <div className="mt-10 grid gap-3 sm:grid-cols-3">
           {[
-            ["Blogs", "/blogs", "测试文章与长期写作"],
-            ["Projects", "/projects", "AI 相关个人项目"],
+            ["Blog", "/blog", "测试文章与长期写作"],
+            ["Project", "/project", "AI 相关个人项目"],
             ["About", "/about", "简历、性格、三观和朋友"],
           ].map(([label, href, description]) => (
             <Link

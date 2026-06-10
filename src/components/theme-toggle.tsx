@@ -1,83 +1,34 @@
-"use client";
+"use client"
 
-import { useEffect, useSyncExternalStore } from "react";
+// import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
-type ThemeMode = "light" | "dark" | "system";
-
-const themeModes: ThemeMode[] = ["light", "dark", "system"];
-const themeLabels: Record<ThemeMode, string> = {
-  light: "Light",
-  dark: "Dark",
-  system: "System",
-};
-
-const themeChangeEvent = "theme-mode-change";
-
-function readThemeMode(): ThemeMode {
-  if (typeof window === "undefined") {
-    return "system";
-  }
-
-  const storedMode = window.localStorage.getItem("theme-mode") as ThemeMode | null;
-  return storedMode && themeModes.includes(storedMode) ? storedMode : "system";
-}
-
-function subscribeToThemeMode(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(themeChangeEvent, callback);
-
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(themeChangeEvent, callback);
-  };
-}
-
-function applyTheme(mode: ThemeMode) {
-  const root = document.documentElement;
-
-  if (mode === "system") {
-    root.removeAttribute("data-theme");
-  } else {
-    root.dataset.theme = mode;
-  }
-
-  root.dataset.themeMode = mode;
-}
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function ThemeToggle() {
-  const mode = useSyncExternalStore(
-    subscribeToThemeMode,
-    readThemeMode,
-    (): ThemeMode => "system",
-  );
-
-  useEffect(() => {
-    applyTheme(mode);
-  }, [mode]);
-
-  function selectTheme(nextMode: ThemeMode) {
-    window.localStorage.setItem("theme-mode", nextMode);
-    applyTheme(nextMode);
-    window.dispatchEvent(new Event(themeChangeEvent));
-  }
+  const { setTheme } = useTheme()
 
   return (
-    <div
-      aria-label="Theme"
-      className="flex rounded-lg border border-border bg-card p-1 text-xs shadow-sm"
-      role="group"
-    >
-      {themeModes.map((item) => (
-        <button
-          key={item}
-          type="button"
-          aria-pressed={mode === item}
-          onClick={() => selectTheme(item)}
-          className="rounded-md px-2.5 py-2 font-medium text-muted-foreground transition hover:bg-accent hover:text-accent-foreground aria-pressed:bg-primary aria-pressed:text-primary-foreground"
-        >
-          {themeLabels[item]}
-        </button>
-      ))}
-    </div>
-  );
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" className="w-9 h-9">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">切换主题</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>浅色模式</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>深色模式</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>跟随系统</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
 }

@@ -25,10 +25,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <main className="mx-auto max-w-3xl px-5 py-16">
       <Link
-        href="/blogs"
+        href="/blog"
         className="text-sm font-medium text-muted-foreground hover:text-foreground"
       >
-        返回 Blogs
+        返回 Blog列表
       </Link>
 
       <article className="mt-8">

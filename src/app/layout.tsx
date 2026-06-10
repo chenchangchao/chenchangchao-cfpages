@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+// import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
   title: "陈常超 | AI Application Developer",
@@ -31,15 +33,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning className="font-sans">
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
         <div className="min-h-screen bg-background text-foreground">
           <SiteHeader />
           {children}
         </div>
+        </ThemeProvider>
       </body>
     </html>
   );

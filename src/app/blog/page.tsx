@@ -6,7 +6,7 @@ export default function BlogsPage() {
     <main className="mx-auto max-w-6xl px-5 py-16">
       <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
         <div>
-          <p className="text-sm font-medium text-muted-foreground">Blogs</p>
+          <p className="text-sm font-medium text-muted-foreground">Blog</p>
           <h1 className="mt-2 text-4xl font-bold tracking-tight">测试文章</h1>
         </div>
         <p className="max-w-xl text-sm leading-6 text-muted-foreground">
@@ -24,7 +24,7 @@ export default function BlogsPage() {
               {post.date}
             </p>
             <h2 className="mt-3 text-xl font-semibold leading-7">
-              <Link href={`/blogs/${post.slug}`} className="hover:underline">
+              <Link href={`/blog/${post.slug}`} className="hover:underline">
                 {post.title}
               </Link>
             </h2>
