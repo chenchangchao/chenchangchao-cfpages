@@ -24,10 +24,10 @@ export function ThemeToggle() {
           <span className="sr-only">切换主题</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>浅色模式</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>深色模式</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>跟随系统</DropdownMenuItem>
+      <DropdownMenuContent align="end" className="min-w-20">
+        <DropdownMenuItem onClick={() => setTheme("light")}>浅色</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>深色</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>系统</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -16,14 +16,11 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-          AI 应用开发 / 数据分析 / TypeScript / Python / PostgreSQL / Agent /
-          RAG
+          人生随想录 / 经历与感受 / 探索与发现 / 独立自由平等  /
         </p>
 
         <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
-          关注 AI
-          Agent、RAG、业务自动化、数据分析与全栈应用开发。把数据思维、工程能力和
-          AI 工具放在同一个工作流里，做能真正省时间的个人项目。
+          我的数字花园，记录感受与思考，分享经历与发现，欢迎交流与讨论。
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
@@ -46,9 +43,9 @@ export default function Home() {
         </div>
         <div className="mt-10 grid gap-3 sm:grid-cols-3">
           {[
-            ["Blog", "/blog", "测试文章与长期写作"],
-            ["Project", "/project", "AI 相关个人项目"],
-            ["About", "/about", "简历、性格、三观和朋友"],
+            ["Blog", "/blog", "博客与生活笔记"],
+            ["Project", "/project", "AI 相关项目笔记"],
+            ["About", "/about", "我的简历、个人性格、网站定位"],
           ].map(([label, href, description]) => (
             <Link
               key={href}
@@ -71,10 +68,10 @@ export default function Home() {
           width={1400}
           height={1050}
           priority
-          className="aspect-[4/3] w-full rounded-md object-cover"
+          className="aspect-4/3 w-full rounded-md object-cover"
         />
         <div className="grid gap-2 p-4 sm:grid-cols-3">
-          {["Agent", "RAG", "Analytics"].map((item) => (
+          {["Life", "Read", "Tech"].map((item) => (
             <div
               key={item}
               className="rounded-md border border-border bg-muted px-3 py-2 text-center text-sm font-medium"

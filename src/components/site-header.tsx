@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { House } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
-// 移除了 lucide-react 里的 Github 和 Twitter 引入
 import { Icons } from "./icons" 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -14,29 +14,28 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
 const blogLinks = [
   {
     href: "/blog",
     title: "所有文章",
-    description: "浏览最新的技术探索与思考记录。",
+    description: "浏览最新的笔记与生活随笔",
   },
   {
-    href: "/blog?category=rag",
-    title: "RAG 知识库",
-    description: "长文本处理与 Next.js 全栈落地实践。",
-  },
-  {
-    href: "/blog?category=agent",
-    title: "AI Agent 开发",
-    description: "基于 MCP Server 的智能体工具链开发。",
+    href: "/blog?category=reading-note",
+    title: "阅读笔记",
+    description: "沉浸浓郁含英咀华",
   },
   {
     href: "/blog?category=life",
     title: "生活与随笔",
-    description: "长跑记录、吉他与古琴的练习日常。",
+    description: "我的碎碎念",
+  },
+    {
+    href: "/blog/gallery",
+    title: "时间画廊",
+    description: "光影捕捉生活的美好时刻",
   },
 ]
 
@@ -44,22 +43,45 @@ const aboutLinks = [
   {
     href: "/about/resume",
     title: "个人简历",
-    description: "我的技术栈、工作经历与教育背景。",
+    description: "我的工作经历与教育背景。",
   },
   {
-    href: "/about/values",
-    title: "价值观",
-    description: "我对技术、商业与个人的认知准则。",
+    href: "/about/site",
+    title: "网站定位",
+    description: "我对网站定位与内容规划的理解。",
   },
   {
     href: "/about/personality",
     title: "性格特质",
-    description: "我的内在驱动力与行事风格。",
+    description: "我的性格特质与兴趣爱好。",
+  },
+]
+
+const projectLinks = [
+  {
+    href: "/project#llm-engineering",
+    title: "LLM Engineering",
+    description: "LLM 工程化与模型部署",
   },
   {
-    href: "/about/friends",
-    title: "友情链接",
-    description: "志同道合的朋友与优秀的极客博客。",
+    href: "/project#llm-under-the-hood",
+    title: "LLM under the hood",
+    description: "LLM核心机制",
+  },
+  {
+    href: "/project#agent-engineering",
+    title: "Agent Engineering",
+    description: "Agent 工程化与业务自动化",
+  },
+  {
+    href: "/project#agent-under-the-hood",
+    title: "Agent Under the hood",
+    description: "Agent核心机制",
+  },
+  {
+    href: "/project#popular-agent",
+    title: "Popular Agent",
+    description: "热门Agent解析",
   },
 ]
 
@@ -68,28 +90,37 @@ export function SiteHeader() {
     <NavigationMenuItem key="blogs">
       <NavigationMenuTrigger className="bg-transparent">博客</NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="grid w-100 gap-3 p-4 md:w-125 md:grid-cols-2">
+        <ul className="grid w-[min(calc(100vw-2rem),22rem)] gap-2 p-3 md:w-136 md:grid-cols-2">
           {blogLinks.map((item) => (
             <ListItem key={item.href} href={item.href} title={item.title}>
+              {item.description}
             </ListItem>
           ))}
         </ul>
       </NavigationMenuContent>
     </NavigationMenuItem>,
     <NavigationMenuItem key="project">
-      <NavigationMenuLink
-        asChild
-        className={cn(navigationMenuTriggerStyle(), "bg-transparent")}
-      >
-        <Link href="/project">项目</Link>
-      </NavigationMenuLink>
+      <NavigationMenuTrigger className="bg-transparent">项目</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid w-[min(calc(100vw-2rem),24rem)] gap-2 p-3">
+          <ListItem href="/project" title="全部项目">
+            AI 应用开发与落地实践总览。
+          </ListItem>
+          {projectLinks.map((item) => (
+            <ListItem key={item.href} href={item.href} title={item.title}>
+              {item.description}
+            </ListItem>
+          ))}
+        </ul>
+      </NavigationMenuContent>
     </NavigationMenuItem>,
     <NavigationMenuItem key="about">
       <NavigationMenuTrigger className="bg-transparent">关于</NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="grid w-100 gap-3 p-4 md:w-125 md:grid-cols-2 lg:w-150">
+        <ul className="grid w-[min(calc(100vw-2rem),22rem)] gap-2 p-3">
           {aboutLinks.map((item) => (
             <ListItem key={item.href} href={item.href} title={item.title}>
+              {item.description}
             </ListItem>
           ))}
         </ul>
@@ -99,23 +130,20 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
-        
-        {/* 左侧：Logo */}
+      <div className="container mx-auto flex h-14 max-w-screen-2xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" aria-label="返回网站主页" title="返回网站主页" className="group flex items-center space-x-2">
+            <House className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
             <span className="font-bold tracking-tight">ChenChangChao</span>
           </Link>
         </div>
 
-        {/* 居中靠右：导航菜单 */}
         <div className="hidden flex-1 items-center justify-end pr-6 md:flex">
           <NavigationMenu>
             <NavigationMenuList>{navigationItems}</NavigationMenuList>
           </NavigationMenu>
         </div>
 
-        {/* 右侧：图标组件和切换按钮 */}
         <div className="flex items-center space-x-2">
           <Link href="https://github.com/chenchangchao" target="_blank" rel="noreferrer">
             <Button variant="ghost" size="icon" className="w-9 h-9">
@@ -130,7 +158,6 @@ export function SiteHeader() {
   )
 }
 
-// 修复点 2：把底层 <a> 升级为 <Link>，消除文本节点警告，实现无刷新跳转
 const ListItem = React.forwardRef<
   React.ComponentRef<typeof Link>,
   React.ComponentPropsWithoutRef<typeof Link> & { title: string }

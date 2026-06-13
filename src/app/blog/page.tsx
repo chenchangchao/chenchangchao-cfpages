@@ -1,49 +1,71 @@
-import Link from "next/link";
-import { blogPosts } from "@/lib/site-data";
+import fs from "fs"
+import path from "path"
+import matter from "gray-matter"
+import { Suspense } from "react"
+import { BookOpen } from "lucide-react"
+import { BlogPostGrid, type BlogPostMeta } from "./blog-post-grid"
 
-export default function BlogsPage() {
+function getStringValue(value: unknown) {
+  return typeof value === "string" ? value : undefined
+}
+
+export async function generateStaticParams() {
+  const contentDir = path.join(process.cwd(), "content")
+  if (!fs.existsSync(contentDir)) return []
+  
+  const files = fs.readdirSync(contentDir)
+  return files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => ({
+      slug: file.replace(".md", ""),
+    }))
+}
+
+export default function BlogListPage() {
+  const contentDir = path.join(process.cwd(), "src/app/blog/[slug]")
+  let posts: BlogPostMeta[] = []
+
+  if (fs.existsSync(contentDir)) {
+    const files = fs.readdirSync(contentDir)
+    posts = files
+      .filter((file) => file.endsWith(".md"))
+      .map((file) => {
+        const filePath = path.join(contentDir, file)
+        const fileContent = fs.readFileSync(filePath, "utf8")
+        const { data } = matter(fileContent)
+        return {
+          slug: file.replace(".md", ""),
+          title: getStringValue(data.title),
+          description: getStringValue(data.description),
+          category: getStringValue(data.category),
+          date: getStringValue(data.date),
+          created_at: getStringValue(data.created_at),
+          updated_at: getStringValue(data.updated_at),
+        }
+      })
+      // 智能排序：谁的最新动向（更新时间，无更新则看创建时间）最近，谁排在前面
+      .sort((a, b) => {
+        const dateA = new Date(a.updated_at || a.created_at || a.date || 0).getTime()
+        const dateB = new Date(b.updated_at || b.created_at || b.date || 0).getTime()
+        return dateB - dateA
+      })
+  }
+
   return (
-    <main className="mx-auto max-w-6xl px-5 py-16">
-      <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
-        <div>
-          <p className="text-sm font-medium text-muted-foreground">Blog</p>
-          <h1 className="mt-2 text-4xl font-bold tracking-tight">测试文章</h1>
-        </div>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-          先放几篇用于站点结构和视觉测试的文章，后续可以替换成正式内容。
+    <div className="container max-w-7xl mx-auto py-12 space-y-8 animate-in fade-in duration-500">
+      <div className="flex flex-col gap-2 border-b border-border/40 pb-6">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl flex items-center gap-2">
+          <BookOpen className="h-8 w-8 text-primary" />
+          读万卷书，行万里路，知行合一
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          我的博客，记录我的学习和成长之路。这里有读书笔记、人生经历等，分享我的所见所闻和思考感悟。希望能对你有所启发，也欢迎交流讨论！
         </p>
       </div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
-        {blogPosts.map((post) => (
-          <article
-            key={post.slug}
-            className="rounded-lg border border-border bg-card p-5 shadow-sm"
-          >
-            <p className="text-xs font-medium text-muted-foreground">
-              {post.date}
-            </p>
-            <h2 className="mt-3 text-xl font-semibold leading-7">
-              <Link href={`/blog/${post.slug}`} className="hover:underline">
-                {post.title}
-              </Link>
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              {post.summary}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-md border border-border bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
-    </main>
-  );
+      <Suspense fallback={<p className="text-muted-foreground text-center py-12">正在加载文章...</p>}>
+        <BlogPostGrid posts={posts} />
+      </Suspense>
+    </div>
+  )
 }

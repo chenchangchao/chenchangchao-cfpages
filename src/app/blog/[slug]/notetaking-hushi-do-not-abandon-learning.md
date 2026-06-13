@@ -3,7 +3,7 @@ title: " Note｜Hu Shih｜Never Give Up the Pursuit of Learning"
 created_at: "2025-07-15"
 excerpt: "此文为1929年胡适给中国公学18级毕业生的赠言。“学问便是铸器的工具。抛弃了学问便是毁了自
 己。”隔着近一个世纪的岁月，这样的诤言仍直指人心，令人警醒。"
-tags: ["Note", "Hu Shih", "Never Give Up the Pursuit of Learning", "Learning", "Growth", "Life", "Education", "Graduation", "Gift"]
+category: "reading-note"
 ---
 Dear students of the Graduating Class,
 

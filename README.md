@@ -19,6 +19,7 @@ bunx shadcn@latest add button dropdown-menu
 bun add lucide-react
 bun add next-themes
 bunx shadcn@latest add navigation-menu
+bunx --bun shadcn@latest add carousel
 
 ```
 

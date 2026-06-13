@@ -9,17 +9,12 @@ const aboutSections = [
   {
     title: "我的性格",
     href: "/about/personality",
-    description: "偏理性、重视结构，也喜欢从真实生活里寻找灵感。",
+    description: "INFP调停者，也喜欢从真实生活里寻找灵感。",
   },
   {
-    title: "我的三观",
-    href: "/about/values",
+    title: "网站定位",
+    href: "/about/site",
     description: "长期主义、真实问题、持续复盘，是我比较看重的底层原则。",
-  },
-  {
-    title: "我的朋友",
-    href: "/about/friends",
-    description: "产品同路人、数据分析伙伴、AI 开发朋友和独立创作者。",
   },
 ];
 
@@ -30,7 +25,7 @@ export default function AboutPage() {
         <p className="text-sm font-medium text-muted-foreground">About</p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight">关于我</h1>
         <p className="mt-4 text-sm leading-7 text-muted-foreground">
-          从统计学、数量经济学到数据分析和 AI 应用开发，我一直在做同一件事：理解复杂系统，然后把它变成更可执行的工具。
+          你好，我是陈常超，一名 AI 应用开发者，主要关注AI 工作流实践、AI落地应用和工程效率。
         </p>
       </section>
 
